@@ -13,7 +13,8 @@ def main():
     print(f'Screen width: {c.SCREEN_WIDTH}')
     print(f'Screen height: {c.SCREEN_HEIGHT}')
     screen = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
-    
+    player = p.Player(c.SCREEN_WIDTH/2, c.SCREEN_HEIGHT/2, c.PLAYER_RADIUS)
+
        #call game loop#
     pygame.running = True
     while pygame.running:
@@ -27,11 +28,14 @@ def main():
         ##ends quit check##
         screen.fill('black')
   #create player object#
-        player = p.Player(c.SCREEN_WIDTH/2, c.SCREEN_HEIGHT/2, c.PLAYER_RADIUS)
+
+        delta_time = clock.tick(60) / 1000
+        player.update(delta_time)
         player.draw(screen)
+       
 
         pygame.display.flip()
-        delta_time = clock.tick(60)
+       
         
 if __name__ == "__main__":
     main()
