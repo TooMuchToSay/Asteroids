@@ -5,6 +5,11 @@ import player as p
 
 def main():
     pygame.init()
+    #creating sprite groups##
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+        
+
     #create clock to get consistent time#
     clock = pygame.time.Clock()
     delta_time = 0
@@ -14,8 +19,9 @@ def main():
     print(f'Screen height: {c.SCREEN_HEIGHT}')
     screen = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
     player = p.Player(c.SCREEN_WIDTH/2, c.SCREEN_HEIGHT/2, c.PLAYER_RADIUS)
-
-       #call game loop#
+    player.add(updatable, drawable) #need to add those sprites manually after creating them
+    
+           #call game loop#
     pygame.running = True
     while pygame.running:
         log_state()
@@ -30,8 +36,9 @@ def main():
   #create player object#
 
         delta_time = clock.tick(60) / 1000
-        player.update(delta_time)
-        player.draw(screen)
+        updatable.update(delta_time)
+        for player in drawable:
+            player.draw(screen)
        
 
         pygame.display.flip()
